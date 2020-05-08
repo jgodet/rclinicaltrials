@@ -4,8 +4,13 @@
 \alias{clinicaltrials_download}
 \title{Downloads detailed information about clinical trials satisfying a query}
 \usage{
-clinicaltrials_download(query = NULL, tframe = NULL, count = 20,
-  include_results = FALSE, include_textblocks = FALSE)
+clinicaltrials_download(
+  query = NULL,
+  tframe = NULL,
+  count = 20,
+  include_results = FALSE,
+  include_textblocks = FALSE
+)
 }
 \arguments{
 \item{query}{Search pattern as a string; a vector of key-value pairs is
@@ -45,4 +50,3 @@ warning. To return all results, use a query string and set count to NULL.
 \dontrun{clinicaltrials_download(query = list(recr='Open', type='Intr', cond='melanoma'))}
 
 }
-

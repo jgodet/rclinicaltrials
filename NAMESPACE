@@ -3,4 +3,5 @@
 export(clinicaltrials_count)
 export(clinicaltrials_download)
 export(clinicaltrials_search)
+export(getStudyField)
 importFrom(utils,unzip)

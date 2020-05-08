@@ -27,4 +27,3 @@ and returns it as a list of dataframes. Optionally includes long textblock
 fields and results fields stored as separate data frames.
 }
 \keyword{Internal}
-
