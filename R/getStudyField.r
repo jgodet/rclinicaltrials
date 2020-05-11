@@ -14,7 +14,10 @@
 #' getStudyField(expr = 'COVID+AND+hydroxychloroquine', fields = c("NCTId"))
 #' getStudyField(expr = 'COVID+AND+hydroxychloroquine', fields = c("NCTId"),max_rnk=50)
 #' getStudyField(expr = 'COVID+AND+hydroxychloroquine', fields = c("NCTId", "BriefTitle"))
-#' @return data.frame
+#' getStudyField(expr = 'COVID+AND+hydroxychloroquine', fields = c("NCTId", "Acronym", "MinimumAge", "MaximumAge"))
+#' getStudyField(expr = 'COVID+AND+hydroxychloroquine', fields = c("NCTId", "Acronym", "MinimumAge", "MaximumAge"),max_rnk = 10)
+#' getStudyField(expr = 'COVID+AND+hydroxychloroquine', fields = c("NCTId", "Acronym", "MinimumAge", "MaximumAge"),max_rnk = "MAX")
+#'@return data.frame
 #' @export
 
 
@@ -24,7 +27,15 @@ getStudyField<- function(expr, fields, max_rnk=NULL){
   urlExpr <- paste("expr=", expr, sep='')
   fields_txt <- paste(fields, collapse="%2C")
   urlFields <- paste("&fields=", fields_txt, sep='')
-  urlRank = paste("&min_rnk=1&max_rnk=", max_rnk, sep='')
+  #urlRank = paste("&min_rnk=1&max_rnk=", max_rnk, sep='')
+
+  if(!is.null(max_rnk) & !is.numeric(max_rnk)){
+    ee <- XML::getNodeSet(parsed_result, "//NStudiesFound")
+    max_rnk =as.numeric(sapply(ee, XML::xmlValue, '//NStudiesFound'))
+    urlRank = paste("&min_rnk=1&max_rnk=", max_rnk, sep='')
+  }else{
+    urlRank = paste("&min_rnk=1&max_rnk=", max_rnk, sep='')
+  }
 
   urlFinal <- paste(urlBase,urlExpr,urlFields,urlRank,"&fmt=xml",sep='')
 
